@@ -1,4 +1,4 @@
-# BUY'N'HODL
+# BUY'N'HOLD
 
 L'objectif est simple: Un CRUD fullstack permettant à plusieurs participants de passer des ordres d'achat.
 
@@ -35,9 +35,10 @@ Je saisis un `username`et un `password` dans le formulaire, si le `username` n'e
 #### 2.3.2 Moyenne des ordres d'achats
 #### 2.3.3 Répartition des plus gros acheteurs (diagramme / liste)
 
-### 2.4 Docker 
+### 2.4 Docker (optionnel, mais c'est quand même plus pratique)
 #### 2.4.1 Côté BACK : dockeriser API et DB
 #### 2.4.2 Côté FRONT : dockeriser le client
 
-  
+ 
+### Petit bonus : l'interface n'est pas très belle, tu as carte blanche !
 ![Steps](https://i.imgur.com/Oi1QDgI.png)
