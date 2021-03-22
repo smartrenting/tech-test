@@ -8,10 +8,21 @@
   text-align: center;
 }
 
+@keyframes rotating {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+
 .App-logo {
   height: 100px;
   max-width: 50%;
   pointer-events: none;
+  animation: rotating 2s linear normal;
 }
 
 .App-header {
