@@ -1,0 +1,30 @@
+GET http://localhost:4242/users
+
+###
+
+GET http://localhost:4242/orders
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTY5ZmRkZjYwNDFlZjM0NTJmZWY3NzQiLCJ1c2VybmFtZSI6InRvdG8iLCJwYXNzd29yZCI6IiQyYiQxMCRNZmt6SzNSZC9USWQ5bzRXemx2aFlPMldycFJSMzY0bnJqNEhhcTJYbGRGU281TVQwdUpKdSIsIl9fdiI6MCwiaWF0IjoxNjM0NDU4NzQxfQ.MayoKQiJm6VySAKWJI4J-JapkzsKGEj3BfGfvSk4gKg
+
+###
+
+DELETE http://localhost:4242/orders/delete
+
+###
+POST http://localhost:4242/orders/add
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTY5YmNjMjNjZWU0ZTA3ZThhNTA5ZTgiLCJ1c2VybmFtZSI6InVzZXIzIiwicGFzc3dvcmQiOiIkMmIkMTAkLmQxcW9yazNQTzhwY24ubGJkTFNIZU1MWjRwNnVsbGNQc3BleTBPNGEuTFZ5Y3NsdWRYZUsiLCJfX3YiOjAsImlhdCI6MTYzNDM3MjE4NSwiZXhwIjoxNjM0NDU4NTg1fQ.16Tu3bRtSRGZXmYe11j_fBGGul61JRfZbFGKWF3J5Vs
+
+{
+  "id": "6169bcc23cee4e07e8a509e8",
+  "quantity": 3
+}
+
+###
+
+POST http://localhost:4242/login
+Content-Type: application/json
+
+{
+  "username": "user4",
+  "password": "user4"
+}

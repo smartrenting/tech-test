@@ -7,18 +7,25 @@ import "./App.css";
 import { AppProvider, useAppContext } from "./contexts/AppContext";
 import TokenHandler from "./scopes/TokenHandler/TokenHandler";
 import Orders from "./scopes/Orders/Orders";
+import axios from "./config/axios";
 
 // The famous nullable boolean we inherited from Java
 type nullableBoolean = boolean | null;
 
 function App() {
   const [connected, setConnected] = useState<nullableBoolean>(null);
-  const { token, setToken } = useAppContext();
+  const { token } = useAppContext();
 
   useEffect(() => {
-    fetch("http://localhost:4242/hello")
-      .then(() => setConnected(true))
-      .catch(() => setConnected(false));
+    async function checkConnection() {
+      try {
+        const check = await axios.get("/hello");
+        if (check) setConnected(check.data === "hello");
+      } catch {
+        setConnected(false);
+      }
+    }
+    checkConnection();
   }, []);
 
   return (
@@ -37,7 +44,7 @@ function App() {
           {token && (
             <>
               <Route path="/orders" component={Orders}></Route>
-              <a>logout</a>
+              <Link to="/login">logout</Link>
             </>
           )}
           <Route path="*" exact>
