@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Order = mongoose.model(
   'Order',
   new mongoose.Schema({
-    id: String,
+    username: String,
     quantity: Number,
     date: Date,
   }),

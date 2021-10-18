@@ -1,21 +1,22 @@
 require('dotenv').config();
+const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/user.model');
 
-const router = require('./router');
+const loginRouter = express.Router();
 
-router.post('/login', async (req, res) => {
+loginRouter.post('/login', async (req, res) => {
   const user = await UserModel.findOne({ username: req.body.username });
 
   if (user) {
     try {
-      if (await bcrypt.compare(user.password, req.body.password)) {
-        const token = jwt.sign(user, process.env.SECRET_TOKEN);
-        res.status(200).send(token);
-      } else { res.status(400).send(); }
-    } catch {
-      res.status(500).send();
+      if (await bcrypt.compare(req.body.password, user.password)) {
+        const token = jwt.sign(user.toJSON(), process.env.SECRET_TOKEN);
+        res.json({ jwt: token, user });
+      } else { res.status(400).send('Wrong password'); }
+    } catch (error) {
+      res.status(500).send('Error with JWT');
     }
   } else {
     try {
@@ -26,9 +27,10 @@ router.post('/login', async (req, res) => {
 
       newUser.save((err, data) => {
         if (err) {
-          res.status(400).send('Error');
+          res.status(400).send('Error during user creation');
         } else {
-          res.status(201).send(data);
+          const token = jwt.sign(newUser.toJSON(), process.env.SECRET_TOKEN);
+          res.status(201).json({ user: data, jwt: token });
         }
       });
     } catch {
@@ -36,3 +38,5 @@ router.post('/login', async (req, res) => {
     }
   }
 });
+
+module.exports = loginRouter;
