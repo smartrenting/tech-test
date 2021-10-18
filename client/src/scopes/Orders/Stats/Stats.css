@@ -1,0 +1,36 @@
+.stats {
+  flex: 1;
+  min-height: 100px;
+  margin: 0 1rem;
+  background-color: rgba(200, 100, 100, 0.3);
+}
+
+.topThree {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+
+  margin-top: 20px;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  width: 50px;
+
+  padding: 10px;
+
+  font-size: 16px;
+
+  background-color: #fff;
+}
+
+.top:first-child {
+  border: 2px solid silver;
+}
+.top:nth-child(2) {
+  border: 2px solid gold;
+}
+.top:nth-child(3) {
+  border: 2px solid coral;
+}

@@ -3,8 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import axios from "../../config/axios";
 import { useAppContext } from "../../contexts/AppContext";
+import OrderForm from "./OrderForm";
+import OrderItem from "./OrderItem";
 
 import "./Orders.css";
+import Stats from "./Stats/Stats";
 
 export default function Orders() {
   const history = useHistory();
@@ -21,11 +24,12 @@ export default function Orders() {
           },
         });
         const orders = response.data;
-        if (orders)
+        if (orders) {
           setOrdersState({
             ...ordersState,
             orders,
           });
+        }
       } catch {
         history.push("/login");
       }
@@ -41,32 +45,12 @@ export default function Orders() {
     console.log(ordersState);
   }, [ordersState]);
 
-  const handleOrder = async () => {
-    if (user) {
-      if (quantity === 0) return;
-      const response = await axios.post(
-        "orders/add",
-        { id: user.id, quantity },
-        {
-          headers: {
-            Authorization: authStr,
-          },
-        }
-      );
-      setOrdersState({
-        ...ordersState,
-        orders: [...orders, response.data],
-        quantity,
-      });
-    }
-  };
-
-  const handleDeleteList = async (e) => {
+  const handleOrderDelete = async (e, id) => {
     e.preventDefault();
-    await axios.delete("/orders/delete");
+    await axios.delete(`/orders/delete/${id}`);
     setOrdersState({
       ...ordersState,
-      orders: [],
+      orders: orders.filter((order) => order.id !== id),
     });
   };
 
@@ -81,39 +65,20 @@ export default function Orders() {
   return (
     <div className="Orders">
       <div className="table">
-        <div className="control">
-          <label htmlFor="count">
-            Nombre de pizza&nbsp;
-            <input
-              type="number"
-              id="count"
-              value={quantity}
-              onChange={handleQuantityChange}
-            ></input>
-          </label>
-          <button onClick={handleOrder}>{`Ajouter une commande`}</button>
-          <button onClick={handleDeleteList}>{`Supprimer la liste`}</button>
+        <OrderForm />
+        <div className="orderListHeader">
+          <div className="username">username</div>
+          <div className="quantity">quantity</div>
+          <div className="date">date</div>
+          <div className="spacer"></div>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>username</th>
-              <th>quantity</th>
-              <th>date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order.id}>
-                <td>{user?.username}</td>
-                <td>{order.quantity}</td>
-                <td>{order.date}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="orderList">
+          {orders.map((order) => (
+            <OrderItem order={order} authStr={authStr} key={order.id} />
+          ))}
+        </div>
       </div>
-      <div className="stats"></div>
+      <Stats />
     </div>
   );
 }

@@ -4,40 +4,32 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 100%;
+  max-width: 1440px;
   overflow: hidden;
-  background-color: #282c34;
-  text-align: center;
+  background-color: orange;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.App-logo {
-  height: 100px;
-  max-width: 50%;
-  animation: App-logo-spin 32s linear infinite;
-  pointer-events: none;
+h1,
+h2 {
+  font-family: "Teko";
+  color: orange;
+}
+/* 
+h5 {
+  height: fit-content;
+  margin: 0;
+  font-size: 64px;
+  font-family: "Teko";
 }
 
-.App-header {
-  min-height: 20vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+h5 span {
+  color: rgba(255, 90, 8, 1);
+} */
 
-.App-link {
-  color: #61dafb;
-}
-
-.login {
-  color: white;
-  font-size: xx-large;
-}
-
-a {
-  color: white;
+input::placeholder {
+  opacity: 0.5;
+  font-size: 16px;
 }
 
 @keyframes App-logo-spin {

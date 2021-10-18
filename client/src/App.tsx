@@ -8,6 +8,7 @@ import { AppProvider, useAppContext } from "./contexts/AppContext";
 import TokenHandler from "./scopes/TokenHandler/TokenHandler";
 import Orders from "./scopes/Orders/Orders";
 import axios from "./config/axios";
+import Header from "./scopes/Header/Header";
 
 // The famous nullable boolean we inherited from Java
 type nullableBoolean = boolean | null;
@@ -30,14 +31,7 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h5>{`Smart-PIZZA`}</h5>
-        <img
-          src="https://i.imgur.com/UJWKS5T.png"
-          className="App-logo"
-          alt="logo"
-        />
-      </header>
+      <Header isLogged={token} />
       <Router>
         <Switch>
           <Route path="/login" component={Login}></Route>
