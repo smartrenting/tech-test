@@ -3,13 +3,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const dbConfig = require('./config/db.config');
 const loginRouter = require('./routes/login');
 const orderRouter = require('./routes/order');
+const { url } = require('./config/db.config');
 
-const port = 4242;
+const port = process.env.LOCAL_PORT || 4242;
 const app = express();
-const url = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`;
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
