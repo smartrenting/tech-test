@@ -1,17 +1,19 @@
 .Orders {
   display: flex;
   margin: 0 1rem;
+  margin-bottom: 1rem;
   padding: 1rem;
   background-color: #ffff;
+  height: 100%;
 }
 
 .table {
   flex: 2;
   padding: 0 1rem;
-  border-right: 0.5px solid #777;
 }
 
 .orderForm {
+  height: 100px;
 }
 
 .addContainer {
@@ -58,7 +60,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  height: 20px;
   padding: 0 20px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -72,7 +74,8 @@
 }
 
 .orderList {
-  overflow-y: hidden;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .orderItem {
