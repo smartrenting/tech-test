@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import axios from "../../config/axios";
 import { useAppContext } from "../../contexts/AppContext";
@@ -12,9 +12,25 @@ type ResponseData = {
   user: User;
 };
 
+type nullableBoolean = boolean | null;
+
 export default function Login() {
   const history = useHistory();
   const { setToken, setUser } = useAppContext();
+  const [connected, setConnected] = useState<nullableBoolean>(null);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    async function checkConnection() {
+      try {
+        const check = await axios.get("/hello");
+        if (check) setConnected(check.data === "hello");
+      } catch {
+        setConnected(false);
+      }
+    }
+    checkConnection();
+  }, []);
 
   useEffect(() => {
     setToken(null);
@@ -38,18 +54,36 @@ export default function Login() {
     history.push(`/orders?token=${token}`);
   };
 
+  const handleUserNameChange = (e) => {
+    e.preventDefault();
+    /* if (e.target.value.length >= 10) {
+      return;
+    } */
+    setUsername(e.target.value);
+  };
+
   return (
     <div className="Login">
       <form onSubmit={handleSubmit}>
         <div className="inputGroup">
           <label htmlFor="username">Username</label>
-          <input id="username" type="text" placeholder="John Doe"></input>
+          <input
+            id="username"
+            type="text"
+            placeholder="John Doe"
+            value={username}
+            onChange={handleUserNameChange}
+          ></input>
         </div>
         <div className="inputGroup">
           <label htmlFor="username">Password</label>
           <input id="password" type="text" placeholder="Jz6JA26v"></input>
         </div>
         <button type="submit">Login</button>
+        <h1 className={connected ? "success" : "danger"}>
+          {connected === true && "connected"}
+          {connected === false && "not connected"}
+        </h1>
       </form>
     </div>
   );

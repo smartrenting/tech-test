@@ -1,0 +1,23 @@
+.rightMenu {
+  display: flex;
+  align-items: center;
+}
+
+.rightMenu svg {
+  width: 35px;
+  height: 35px;
+  padding: 5px;
+}
+
+.rightMenu .logout path {
+  transition: all ease-in-out 150ms;
+}
+
+.rightMenu .logout:hover path {
+  fill: tomato;
+}
+
+.rightMenu a {
+  color: white;
+  height: 35px;
+}

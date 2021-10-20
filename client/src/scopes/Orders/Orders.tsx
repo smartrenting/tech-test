@@ -5,6 +5,7 @@ import axios from "../../config/axios";
 import { useAppContext } from "../../contexts/AppContext";
 import OrderForm from "./OrderForm";
 import OrderItem from "./OrderItem";
+import OrderList from "./OrderList";
 
 import "./Orders.css";
 import Stats from "./Stats/Stats";
@@ -27,7 +28,10 @@ export default function Orders() {
         if (orders) {
           setOrdersState({
             ...ordersState,
-            orders,
+            orders: orders.map((order) => ({
+              id: order._id,
+              ...order,
+            })),
           });
         }
       } catch {
@@ -42,41 +46,14 @@ export default function Orders() {
   }, [user]);
 
   useEffect(() => {
-    console.log(ordersState);
-  }, [ordersState]);
-
-  const handleOrderDelete = async (e, id) => {
-    e.preventDefault();
-    await axios.delete(`/orders/delete/${id}`);
-    setOrdersState({
-      ...ordersState,
-      orders: orders.filter((order) => order.id !== id),
-    });
-  };
-
-  const handleQuantityChange = (e) => {
-    e.preventDefault();
-    setOrdersState({
-      ...ordersState,
-      quantity: parseInt(e.target.value),
-    });
-  };
+    //console.log(orders);
+  }, [orders]);
 
   return (
     <div className="Orders">
       <div className="table">
         <OrderForm />
-        <div className="orderListHeader">
-          <div className="username">username</div>
-          <div className="quantity">quantity</div>
-          <div className="date">date</div>
-          <div className="spacer"></div>
-        </div>
-        <div className="orderList">
-          {orders.map((order) => (
-            <OrderItem order={order} authStr={authStr} key={order.id} />
-          ))}
-        </div>
+        <OrderList authStr={authStr} />
       </div>
       <Stats />
     </div>

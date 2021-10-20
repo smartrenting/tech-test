@@ -2,13 +2,13 @@
   flex: 1;
   min-height: 100px;
   margin: 0 1rem;
-  background-color: rgba(200, 100, 100, 0.3);
 }
 
 .topThree {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
+  max-width: 620px;
 
   margin-top: 20px;
 }
@@ -16,21 +16,92 @@
 .top {
   display: flex;
   flex-direction: column;
-  width: 50px;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  min-width: 100px;
+  max-width: 200px;
 
-  padding: 10px;
+  padding: 20px 30px;
 
   font-size: 16px;
 
+  text-transform: uppercase;
   background-color: #fff;
+  border-radius: 5px;
 }
 
-.top:first-child {
+.top > div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  max-width: 50px;
+  font-size: 20px;
+}
+
+.top svg {
+  width: 20px !important;
+  margin-left: 10px;
+}
+
+.silver {
+  margin-top: 15px;
   border: 2px solid silver;
 }
-.top:nth-child(2) {
+.silver h3 {
+  font-size: 21px;
+  color: silver;
+}
+.silver svg path {
+  fill: silver;
+}
+
+.gold {
+  margin: 0 10px;
   border: 2px solid gold;
 }
-.top:nth-child(3) {
+.gold h3 {
+  font-size: 24px;
+  color: gold;
+}
+.gold svg path,
+.crown path {
+  fill: gold;
+}
+
+.bronze {
+  margin-top: 20px;
   border: 2px solid coral;
+}
+.bronze h3 {
+  font-size: 18px;
+  color: coral;
+}
+.bronze svg path {
+  fill: coral;
+}
+
+.average {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.average p {
+  margin-left: 10px;
+}
+
+.average svg {
+  width: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.userAndQuantity {
+  margin-bottom: 20px;
+}
+
+.userAndQuantityItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

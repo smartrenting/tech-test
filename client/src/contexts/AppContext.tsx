@@ -39,7 +39,6 @@ const AppContext = createContext<IAppState & IAppContext>({
 });
 
 export const AppReducer = (state: IAppState, action: Actions<ActionTypes>) => {
-  console.log("action", action);
   switch (action.type) {
     case ActionTypes.SET_TOKEN:
       return { ...state, token: action?.payload };

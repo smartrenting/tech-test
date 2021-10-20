@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "../../config/axios";
 import { useAppContext } from "../../contexts/AppContext";
+import { isNumber } from "../../utils/utils";
 
 const OrderForm = () => {
   const { token, user, ordersState, setOrdersState } = useAppContext();
@@ -9,9 +10,11 @@ const OrderForm = () => {
 
   const handleQuantityChange = (e) => {
     e.preventDefault();
+    if (!isNumber(e.target.value)) return;
+    const value = e.target.value || 0;
     setOrdersState({
       ...ordersState,
-      quantity: parseInt(e.target.value),
+      quantity: parseInt(value),
     });
   };
 
@@ -37,7 +40,11 @@ const OrderForm = () => {
 
   const handleDeleteList = async (e) => {
     e.preventDefault();
-    await axios.delete("/orders/delete");
+    await axios.delete("/orders/delete", {
+      headers: {
+        Authorization: authStr,
+      },
+    });
     setOrdersState({
       ...ordersState,
       orders: [],
@@ -58,13 +65,13 @@ const OrderForm = () => {
       <h2>How many Pizza do you want ?</h2>
       <div className="addContainer">
         <input
-          type="number"
+          type="text"
           id="count"
           value={quantity === 0 ? "" : quantity}
           onChange={handleQuantityChange}
         ></input>
         <div className="addOrRemove">
-          <div className="add btn" onClick={() => handleAddOrRemove("add")}>
+          <div className="btn" onClick={() => handleAddOrRemove("add")}>
             <svg
               aria-hidden="true"
               focusable="false"
@@ -80,10 +87,7 @@ const OrderForm = () => {
               ></path>
             </svg>
           </div>
-          <div
-            className="remove btn"
-            onClick={() => handleAddOrRemove("remove")}
-          >
+          <div className="btn" onClick={() => handleAddOrRemove("remove")}>
             <svg
               aria-hidden="true"
               focusable="false"
@@ -100,8 +104,12 @@ const OrderForm = () => {
             </svg>
           </div>
         </div>
-        <button onClick={handleOrder}>{`Ajouter une commande`}</button>
-        <button onClick={handleDeleteList}>{`Supprimer la liste`}</button>
+        <div className="btn order rounded" onClick={handleOrder}>
+          ORDER
+        </div>
+        <div className="btn outline rounded faded" onClick={handleDeleteList}>
+          delete list
+        </div>
       </div>
     </div>
   );

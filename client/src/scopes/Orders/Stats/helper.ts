@@ -1,6 +1,7 @@
 export const getTopThreeUser = (orders) => {
-  const top = getAllUserQuantity(orders).slice(0, 3);
-  return top.sort((a, b) => b[1] - a[1]);
+  return getAllUserQuantity(orders)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
 };
 
 export const getAllUserQuantity = (orders): Array<[string, number]> => {
@@ -11,4 +12,17 @@ export const getAllUserQuantity = (orders): Array<[string, number]> => {
       return acc;
     }, {})
   );
+};
+
+export const getAveragePizzaByOrder = (orders) => {
+  if (orders.length <= 0) return 0;
+  const quantities = orders.map((order) => order.quantity);
+  return Math.round(
+    quantities.reduce((acc, current) => acc + current) / quantities.length
+  );
+};
+
+export const getOrdersByDate = (orders, date) => {
+  const ordered = orders.map((order) => order.date === new Date(date));
+  return ordered;
 };
