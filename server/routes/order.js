@@ -9,16 +9,10 @@ const OrderModel = require('../models/order.model');
 
 orderRouter.get('/orders', authenticateToken, (req, res) => {
   OrderModel.find((err, data) => {
-    const newData = data.map((order) => ({
-      id: order.id,
-      username: order.username,
-      quantity: order.quantity,
-      date: order.date,
-    }));
     if (err) {
       return res.status(500).send('Error');
     }
-    return res.status(200).send(newData);
+    return res.status(200).send(data);
   });
 });
 

@@ -20,19 +20,22 @@ loginRouter.post('/login', async (req, res) => {
     }
   } else {
     try {
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      const newUser = UserModel();
-      newUser.username = req.body.username;
-      newUser.password = hashedPassword;
+      if (req.body.username.length <= 10) res.status(401).send('Login too long');
+      else {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const newUser = UserModel();
+        newUser.username = req.body.username;
+        newUser.password = hashedPassword;
 
-      newUser.save((err, data) => {
-        if (err) {
-          res.status(400).send('Error during user creation');
-        } else {
-          const token = jwt.sign(newUser.toJSON(), process.env.SECRET_TOKEN);
-          res.status(201).json({ user: data, jwt: token });
-        }
-      });
+        newUser.save((err, data) => {
+          if (err) {
+            res.status(400).send('Error during user creation');
+          } else {
+            const token = jwt.sign(newUser.toJSON(), process.env.SECRET_TOKEN);
+            res.status(201).json({ user: data, jwt: token });
+          }
+        });
+      }
     } catch {
       res.status(500).send();
     }
