@@ -23,6 +23,12 @@ export const getAveragePizzaByOrder = (orders) => {
 };
 
 export const getOrdersByDate = (orders, date) => {
-  const ordered = orders.map((order) => order.date === new Date(date));
-  return ordered;
+  /* const ordered = orders.map(
+    (order) => order.date === new Date(date.split("/").reverse().join("-"))
+  ); */
+  const ordered = orders.map((order) => {
+    console.log("orderDate", order.date);
+    console.log("date", new Date(date.split("/").reverse().join("-")));
+  });
+  return [];
 };

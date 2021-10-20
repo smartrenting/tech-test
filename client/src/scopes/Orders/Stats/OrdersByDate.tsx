@@ -10,7 +10,6 @@ const OrdersByDate = () => {
 
   const handlePickedDate = (e) => {
     e.preventDefault();
-    console.log(new Date(e.target.value));
     setPickedDate(new Date(e.target.value).toLocaleDateString());
   };
 
