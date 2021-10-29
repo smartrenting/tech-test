@@ -1,30 +1,30 @@
 import React from "react";
 
-import "./Trade.css";
+import "./Dashboard.css";
 
-export default function Trade() {
+export default function Dashboard() {
   return (
-    <div className="Trade">
+    <div className="Dashboard">
       <div className="table">
         <div className="control">
           <label htmlFor="price">
-            Price
-            <input type="number" id="price"></input>
+            Merguez:
+            <input type="number" id="merguez"></input>
           </label>
-          <button>{`Ajouter une option d'achat`}</button>
+          <button>{`Ajouter un score`}</button>
         </div>
         <table>
           <thead>
             <tr>
               <th>username</th>
-              <th>price</th>
-              <th>expiration</th>
+              <th>merguez</th>
+              <th>date</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Example</td>
-              <td>100$</td>
+              <td>Maxime</td>
+              <td>2</td>
               <td>{new Date().toDateString()}</td>
             </tr>
           </tbody>
